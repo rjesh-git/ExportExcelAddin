@@ -20,8 +20,9 @@ app.use(session({secret: '1234567890QWERTY'}));
 app.get('/report', function(req, res) {
   res.send('TODO:Excel will be sent here list: '+ listID +', view:' +viewID);
 });
+process.env['parameters'] = 'parameters.json';
 
-var parametersFile = process.argv[2] || process.env['ADAL_SAMPLE_PARAMETERS_FILE'];
+var parametersFile = process.argv[2] || process.env['parameters'];
 
 var sampleParameters;
 if (parametersFile) {
