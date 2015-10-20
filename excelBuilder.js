@@ -1,6 +1,3 @@
-var express = require('express');
-var app = express();
-
 var fname = Math.random() + '.xlsx';
 var excelbuilder = require('msexcel-builder');
 var workbook = excelbuilder.createWorkbook('./', fname)
@@ -12,14 +9,6 @@ sheet1.set(1, 1, 'I am title');
 for (var i = 2; i < 5; i++)
 sheet1.set(i, 1, 'test' + i);
 
-/*workbook.generate(function (err, zip) {
-      if (err) throw err;
-      else {
-        buffer = zip.generate({type: "nodebuffer"});
-      }
-  });*/
-   
-// Save it 
 workbook.save(function(ok){
 if (!ok) 
   workbook.cancel();

@@ -17,6 +17,7 @@ app.use(cookieParser('a deep secret'));
 app.use(session({secret: '1234567890QWERTY'}));
 
 app.get('/report', function(req, res) {
+  res.header("Content-Type", "text/html");
   res.send('TODO:Excel will be sent here list: '+ listID +', view:' +viewID);
 });
 

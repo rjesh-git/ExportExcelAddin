@@ -2,11 +2,17 @@
   "name": "ExportExcelAddin",
   "version": "0.0.1",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rjesh-git/ExportExcelAddin"
+  },
+  "main": "main.js",
   "dependencies": {
-    "adal-node": ">= 0.1.3",
-    "express": "2.x",
+    "adal-node": ">= 0.1.17",
+    "express": "4.13",
     "connect-logger": "0.x",
-    "cookie-parser": "1.x",
-    "cookie-session": "1.x"
+    "cookie-parser": "1.4",
+    "cookie-session": "2.x",
+    "msexcel-builder": "0.0.2"
   }
 }

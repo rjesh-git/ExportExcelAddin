@@ -21,10 +21,10 @@ if (parametersFile) {
 
 if (!parametersFile) {
   sampleParameters = {
-    tenant : 'REPLACETHIS.onmicrosoft.com',
-    authorityHostUrl : 'https://login.windows.net',
-    clientId : '89bedb2a-3c1e-4df6-b544-8f1f14392ebd',
-    clientSecret : 'vM2XycJD8lf29qfckwGC604ATqUBYTFcIsxvdnZuNFo='
+    tenant: 'REPLACETHIS.onmicrosoft.com',
+    authorityHostUrl: 'https://login.windows.net',
+    clientId: '89bedb2a-3c1e-4df6-b544-8f1f14392ebd',
+    clientSecret: 'vM2XycJD8lf29qfckwGC604ATqUBYTFcIsxvdnZuNFo='
   };
 }
 
@@ -37,7 +37,7 @@ var templateAuthzUrl = 'https://login.windows.net/' + sampleParameters.tenant + 
 
 function createAuthorizationUrl(state) {
   var authorizationUrl = templateAuthzUrl.replace('<client_id>', sampleParameters.clientId);
-  authorizationUrl = authorizationUrl.replace('<redirect_uri>',redirectUri);
+  authorizationUrl = authorizationUrl.replace('<redirect_uri>', redirectUri);
   authorizationUrl = authorizationUrl.replace('<state>', state);
   authorizationUrl = authorizationUrl.replace('<resource>', resource);
   return authorizationUrl;
@@ -71,10 +71,10 @@ exports.processGetToken = function (req, res) {
   });
 };
 
-exports.processAuth = function(req, res) {
+exports.processAuth = function (req, res) {
 
-  crypto.randomBytes(48, function(ex, buf) {
-    var token = buf.toString('base64').replace(/\//g,'_').replace(/\+/g,'-');
+  crypto.randomBytes(48, function (ex, buf) {
+    var token = buf.toString('base64').replace(/\//g, '_').replace(/\+/g, '-');
     res.cookie('authstate', token);
     var authorizationUrl = createAuthorizationUrl(token);
     res.redirect(authorizationUrl);
