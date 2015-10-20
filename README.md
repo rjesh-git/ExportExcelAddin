@@ -5,7 +5,9 @@
 
 
 ### Summary ###
-Export selected items to excel
+Export selected items to excel using NodeJS
+
+
 
 ### Applies to ###
 -  Office 365 Multi Tenant (MT)
@@ -16,7 +18,8 @@ Export selected items to excel
 ### Solution ###
 Solution | Author(s)
 ---------|----------
-localizer | Rajesh Sitaraman
+ExportExcelAddin | Rajesh Sitaraman
+
 
 ### Version history ###
 Version  | Date | Comments
