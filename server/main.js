@@ -8,8 +8,7 @@ var session = require('cookie-session');
 var AuthenticationContext = require('adal-node').AuthenticationContext;
 var adalHelper = require('./adalHelper.js');
 var excelBuilder = require('./excelBuilder.js');
-
-var viewID ='', spHostUrl='', itemsID, listID='';
+var spHelper = require('./sharepointHelper.js');
 
 var app = express();
 app.use(logger());
@@ -18,17 +17,13 @@ app.use(session({secret: '1234567890QWERTY'}));
 
 app.get('/report', function(req, res) {
   //res.header("Content-Type", "text/html");
-  excelBuilder.init('TheList','viewNameHere');
-  res.download('./' + 'TheList.xlsx');
-  //res.send('TODO:Excel will be sent here list: '+ listID +', view:' +viewID);
+  //excelBuilder.init('TheList','viewNameHere');
+  spHelper.getViewFields();
+  //res.download('./' + 'TheList.xlsx');
 });
 
 app.get('/export', function(req, res) {
-  viewID = decodeURIComponent(req.query.ViewID);
-  listID = decodeURIComponent(req.query.ListID);
-  itemsID = decodeURIComponent(req.query.ItemID);
-  spHostUrl = decodeURIComponent(req.query.SPHostUrl);
-  
+  spHelper.init(req, adalHelper.getAccessToken());
   adalHelper.processAuth(req, res);
 });
 
