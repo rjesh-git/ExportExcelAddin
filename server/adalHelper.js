@@ -4,6 +4,7 @@ var session = require('cookie-session');
 var fs = require('fs');
 var crypto = require('crypto');
 var AuthenticationContext = require('adal-node').AuthenticationContext;
+var accessToken;
 
 process.env['parameters'] = 'parameters.json';
 
@@ -21,10 +22,10 @@ if (parametersFile) {
 
 if (!parametersFile) {
   sampleParameters = {
-    tenant : 'REPLACETHIS.onmicrosoft.com',
-    authorityHostUrl : 'https://login.windows.net',
-    clientId : '89bedb2a-3c1e-4df6-b544-8f1f14392ebd',
-    clientSecret : 'vM2XycJD8lf29qfckwGC604ATqUBYTFcIsxvdnZuNFo='
+    tenant: 'REPLACETHIS.onmicrosoft.com',
+    authorityHostUrl: 'https://login.windows.net',
+    clientId: '89bedb2a-3c1e-4df6-b544-8f1f14392ebd',
+    clientSecret: 'vM2XycJD8lf29qfckwGC604ATqUBYTFcIsxvdnZuNFo='
   };
 }
 
@@ -37,7 +38,7 @@ var templateAuthzUrl = 'https://login.windows.net/' + sampleParameters.tenant + 
 
 function createAuthorizationUrl(state) {
   var authorizationUrl = templateAuthzUrl.replace('<client_id>', sampleParameters.clientId);
-  authorizationUrl = authorizationUrl.replace('<redirect_uri>',redirectUri);
+  authorizationUrl = authorizationUrl.replace('<redirect_uri>', redirectUri);
   authorizationUrl = authorizationUrl.replace('<state>', state);
   authorizationUrl = authorizationUrl.replace('<resource>', resource);
   return authorizationUrl;
@@ -60,23 +61,27 @@ exports.processGetToken = function (req, res) {
       return;
     }
 
-    // Later, if the access token is expired it can be refreshed.
+    // TODO: Later, if the access token is expired it can be refreshed.
     authenticationContext.acquireTokenWithRefreshToken(response.refreshToken, sampleParameters.clientId, sampleParameters.clientSecret, resource, function (refreshErr, refreshResponse) {
       if (refreshErr) {
         message += 'refreshError: ' + refreshErr.message + '\n';
       }
       message += 'refreshResponse: ' + JSON.stringify(refreshResponse);
+      accessToken = response.accessToken;
       res.redirect('report');
     });
   });
 };
 
-exports.processAuth = function(req, res) {
-
-  crypto.randomBytes(48, function(ex, buf) {
-    var token = buf.toString('base64').replace(/\//g,'_').replace(/\+/g,'-');
+exports.processAuth = function (req, res) {
+  crypto.randomBytes(48, function (ex, buf) {
+    var token = buf.toString('base64').replace(/\//g, '_').replace(/\+/g, '-');
     res.cookie('authstate', token);
     var authorizationUrl = createAuthorizationUrl(token);
     res.redirect(authorizationUrl);
   });
 };
+
+exports.getAccessToken = function (){
+  return accessToken;
+}
