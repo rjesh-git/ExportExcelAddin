@@ -25,7 +25,7 @@ exports.getListItems = function (viewId) {
 
 var performRequest = function (endpoint, method, success) {
 	var options = {
-		host: 'tpgbys.sharepoint.com/sites/o365',
+		host: 'xx.sharepoint.com/sites/o365',
 		path: endpoint,
 		method: method,
 		headers: {
