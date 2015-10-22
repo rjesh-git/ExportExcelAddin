@@ -12,38 +12,19 @@ exports.init = function (req, accessToken) {
 };
 
 exports.getViewFields = function () {
-	unirest.get("https://tpgbys.sharepoint.com/sites/o365/_api/web/lists(guid'81126B95-9B39-4D57-B283-390869CD23E3')")
-		.header({ 'Accept': 'application/json', 'Authorization': 'Bearer ' + aToken })
-		.send()
-		.end(function (response) {
-			console.log(response.body);
-		});
+	performRequest(spHostUrl + "/_api/web/lists(guid'81126B95-9B39-4D57-B283-390869CD23E3')/items");
 	//https://xx.sharepoint.com/sites/o365/_api/web/lists(guid'81126B95-9B39-4D57-B283-390869CD23E3')/Views(guid'94050996-1781-4820-A95F-5B52CE9D7B0F')/viewFields
 };
 
 exports.getListItems = function (viewId) {
 };
 
-var performRequest = function (endpoint, method, success) {
-	/*var options = {
-		host: 'tpgbys.sharepoint.com/sites/o365',
-		path: endpoint,
-		method: method,
-		headers: {
-			'Accept': 'application/json',
-			'Authorization': 'Bearer ' + aToken
-		}
-	};
-	https.request(options, function (res) {
-		res.setEncoding('utf-8');
-		var responseString = '';
-		res.on('data', function (data) {
-			responseString += data;
+var performRequest = function (endpoint, success) {
+	unirest.get(endpoint)
+		.header({ 'Accept': 'application/json', 'Authorization': 'Bearer ' + aToken })
+		.send()
+		.end(function (response) {
+			console.log('endpoint-'+endpoint);
+			console.log(response.body);
 		});
-		res.on('end', function () {
-			console.log(responseString);
-			var responseObject = JSON.parse(responseString);
-			success(responseObject);
-		});
-	}).end();*/
 };
