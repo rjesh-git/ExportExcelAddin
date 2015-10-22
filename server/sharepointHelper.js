@@ -1,6 +1,6 @@
 var querystring = require('querystring');
 var https = require('https');
-
+var unirest = require('unirest');
 var viewID = '', spHostUrl = '', itemsID, listID = '', aToken;
 
 exports.init = function (req, accessToken) {
@@ -12,11 +12,12 @@ exports.init = function (req, accessToken) {
 };
 
 exports.getViewFields = function () {
-	console.log('site:'+spHostUrl + ',ListID:'+listID);
-	performRequest("/_api/web/lists(guid'81126b95-9b39-4d57-b283-390869cd23e3')", 'GET'
-	, function (data) {
-		console.log('Fetched ' + data + ' cards');
-	});
+	unirest.get("https://tpgbys.sharepoint.com/sites/o365/_api/web/lists(guid'81126B95-9B39-4D57-B283-390869CD23E3')")
+		.header({ 'Accept': 'application/json', 'Authorization': 'Bearer ' + aToken })
+		.send()
+		.end(function (response) {
+			console.log(response.body);
+		});
 	//https://xx.sharepoint.com/sites/o365/_api/web/lists(guid'81126B95-9B39-4D57-B283-390869CD23E3')/Views(guid'94050996-1781-4820-A95F-5B52CE9D7B0F')/viewFields
 };
 
@@ -24,13 +25,13 @@ exports.getListItems = function (viewId) {
 };
 
 var performRequest = function (endpoint, method, success) {
-	var options = {
-		host: 'xx.sharepoint.com/sites/o365',
+	/*var options = {
+		host: 'tpgbys.sharepoint.com/sites/o365',
 		path: endpoint,
 		method: method,
 		headers: {
 			'Accept': 'application/json',
-			'Authorization': 'Bearer ' + aToken,
+			'Authorization': 'Bearer ' + aToken
 		}
 	};
 	https.request(options, function (res) {
@@ -44,5 +45,5 @@ var performRequest = function (endpoint, method, success) {
 			var responseObject = JSON.parse(responseString);
 			success(responseObject);
 		});
-	}).end();
+	}).end();*/
 };

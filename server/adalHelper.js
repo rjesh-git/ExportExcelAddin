@@ -32,8 +32,6 @@ if (!parametersFile) {
 var authorityUrl = sampleParameters.authorityHostUrl + '/' + sampleParameters.tenant;
 var redirectUri = 'http://localhost:3000/getAToken';
 var resource = '00000002-0000-0000-c000-000000000000';
-
-
 var templateAuthzUrl = 'https://login.windows.net/' + sampleParameters.tenant + '/oauth2/authorize?response_type=code&client_id=<client_id>&redirect_uri=<redirect_uri>&state=<state>&resource=<resource>';
 
 function createAuthorizationUrl(state) {
@@ -50,12 +48,7 @@ exports.processGetToken = function (req, res) {
   }
   var authenticationContext = new AuthenticationContext(authorityUrl);
   authenticationContext.acquireTokenWithAuthorizationCode(req.query.code, redirectUri, resource, sampleParameters.clientId, sampleParameters.clientSecret, function (err, response) {
-    var message = '';
-    if (err) {
-      message = 'error: ' + err.message + '\n';
-    }
-    message += 'response: ' + JSON.stringify(response);
-
+    accessToken = response.accessToken;
     if (err) {
       res.redirect('report');
       return;
@@ -63,11 +56,7 @@ exports.processGetToken = function (req, res) {
 
     // TODO: Later, if the access token is expired it can be refreshed.
     authenticationContext.acquireTokenWithRefreshToken(response.refreshToken, sampleParameters.clientId, sampleParameters.clientSecret, resource, function (refreshErr, refreshResponse) {
-      if (refreshErr) {
-        message += 'refreshError: ' + refreshErr.message + '\n';
-      }
-      message += 'refreshResponse: ' + JSON.stringify(refreshResponse);
-      accessToken = response.accessToken;
+      accessToken = refreshResponse.accessToken;
       res.redirect('report');
     });
   });

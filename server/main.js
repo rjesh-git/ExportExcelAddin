@@ -18,12 +18,12 @@ app.use(session({secret: '1234567890QWERTY'}));
 app.get('/report', function(req, res) {
   //res.header("Content-Type", "text/html");
   //excelBuilder.init('TheList','viewNameHere');
-  spHelper.getViewFields();
+    spHelper.init(req, adalHelper.getAccessToken());
+    spHelper.getViewFields();
   //res.download('./' + 'TheList.xlsx');
 });
 
 app.get('/export', function(req, res) {
-  spHelper.init(req, adalHelper.getAccessToken());
   adalHelper.processAuth(req, res);
 });
 
