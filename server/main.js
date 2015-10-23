@@ -7,7 +7,7 @@ var session = require('cookie-session');
 
 var AuthenticationContext = require('adal-node').AuthenticationContext;
 var adalHelper = require('./adalHelper.js');
-var excelBuilder = require('./excelBuilder.js');
+
 var spHelper = require('./sharepointHelper.js');
 
 var app = express();
@@ -17,13 +17,14 @@ app.use(session({secret: '1234567890QWERTY'}));
 
 app.get('/report', function(req, res) {
   //res.header("Content-Type", "text/html");
-  //excelBuilder.init('TheList','viewNameHere');
-    spHelper.init(req, adalHelper.getAccessToken());
-    spHelper.getViewFields();
-  //res.download('./' + 'TheList.xlsx');
+    spHelper.getListItems();
+
+    //excelBuilder.addRows(spHelper.getListItems());
+    res.download('./' + 'TheList.xlsx');
 });
 
 app.get('/export', function(req, res) {
+  spHelper.init(req);
   adalHelper.processAuth(req, res);
 });
 
