@@ -1,4 +1,3 @@
-var querystring = require('querystring');
 var https = require('https');
 var unirest = require('unirest');
 var adalHelper = require('./adalHelper.js');

@@ -13,6 +13,7 @@
     "connect-logger": "0.x",
     "cookie-parser": "1.4",
     "cookie-session": "2.x",
-    "msexcel-builder": "0.0.2"
+    "msexcel-builder": "0.0.2",
+    "unirest": "2.14.x"
   }
 }
