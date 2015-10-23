@@ -1,5 +1,4 @@
 'use strict';
-
 var express = require('express');
 var logger = require('connect-logger');
 var cookieParser = require('cookie-parser');
@@ -14,10 +13,8 @@ app.use(cookieParser('a deep secret'));
 app.use(session({secret: '1234567890QWERTY'}));
 
 app.get('/report', function(req, res) {
-  //res.header("Content-Type", "text/html");
-    spHelper.getListItems();
-    //excelBuilder.addRows(spHelper.getListItems());
-    res.download('./' + 'TheList.xlsx');
+    spHelper.getListItems(req, res);
+    
 });
 
 app.get('/export', function(req, res) {
