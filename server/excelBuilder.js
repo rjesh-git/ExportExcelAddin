@@ -17,20 +17,25 @@ var addTestRows = function () {
   workbook.cancel();
 };
 
-exports.addRows = function (data) {
-  var i, j;
-  for (j = 0; j < data.value[0].length; j++) {
-    sheet1.set(1, j, data.value[j]);
-  }
+exports.addRows = function (data, res) {
+  var i = 0, j = 0;
+  for (var property in data.value[i]) {
+    console.log(property + ':' + data.value[j][property]);
+    sheet1.set(j + 1, 1, property); j++;
+		}
+
   for (i = 0; i < data.value.length; i++) {
-    for (j = 0; j < data.value[i].length; j++) {
-      sheet1.set(i, j, data.value[j]);
+    j = 0;
+    for (var property in data.value[i]) {
+      console.log(property + ':' + data.value[i][property]);
+      sheet1.set(j + 1, i + 2, data.value[i][property]); j++;
     }
   }
-  workbook.save(function (ok) {
-    if (!ok)
-      workbook.cancel();
+  workbook.save(function (err) {
+    if (err)
+      throw err;
     else
+      //res.download('./' + 'TheList.xlsx');
       console.log('congratulations, your workbook created');
   });
 };

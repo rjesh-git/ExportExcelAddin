@@ -4,7 +4,7 @@ var unirest = require('unirest');
 var adalHelper = require('./adalHelper.js');
 var excelBuilder = require('./excelBuilder.js');
 
-var viewID = '', spHostUrl = '', itemsID, listID = '';
+var viewID = '', spHostUrl = '', itemsID, listID = '', resp;
 
 exports.init = function (req) {
 	viewID = decodeURIComponent(req.query.ViewID);
@@ -18,7 +18,7 @@ exports.getViewFields = function () {
 	//https://xx.sharepoint.com/sites/o365/_api/web/lists(guid'81126B95-9B39-4D57-B283-390869CD23E3')/Views(guid'94050996-1781-4820-A95F-5B52CE9D7B0F')/viewFields
 };
 
-exports.getListItems = function (viewId) {
+exports.getListItems = function (complete) {
 	//excelBuilder.addRows(performRequest(spHostUrl + "/_api/web/lists(guid'81126B95-9B39-4D57-B283-390869CD23E3')/items", processDataItems));
 	performRequest(spHostUrl + "/_api/web/lists(guid'81126B95-9B39-4D57-B283-390869CD23E3')/items", processDataItems);
 };
