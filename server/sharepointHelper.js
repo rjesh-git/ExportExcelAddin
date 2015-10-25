@@ -15,22 +15,16 @@ exports.init = function (req) {
 	excelBuilder.init(listName, 'viewNameHere');
 };
 
-exports.getViewFields = function () {
-	//TODO: View fields and its type will be available in request form as JSON
-	//https://xx.sharepoint.com/sites/o365/_api/web/lists(guid'81126B95-9B39-4D57-B283-390869CD23E3')/Views(guid'94050996-1781-4820-A95F-5B52CE9D7B0F')/viewFields
-};
-
 exports.getListItems = function (req, res) {
 	performRequest(res, buildQuery(), processDataItems);
 };
 
 var performRequest = function (res, endpoint, success) {
-	console.log(endpoint);
 	unirest.get(endpoint)
 		.header({ 'Accept': 'application/json', 'Authorization': 'Bearer ' + adalHelper.getAccessToken() })
 		.send()
 		.end(function (response) {
-			excelBuilder.addRows(res, response.body);
+			excelBuilder.addRows(res, response.body,listFields);
 		});
 };
 
