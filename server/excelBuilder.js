@@ -17,8 +17,6 @@ exports.addRows = function (res, data, listFields) {
     for (j = 0; j < listFields.length; j++) {
       switch (listFields[j].FieldType) {
         case 'User':
-          pValue = data.value[i][listFields[j].RealFieldName].Title;
-          break;
         case 'Lookup':
           pValue = data.value[i][listFields[j].RealFieldName].Title;
           break;

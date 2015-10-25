@@ -20,11 +20,6 @@ app.get('/report', function(req, res) {
     spHelper.getListItems(req, res);   
 });
 
-app.get('/export', function(req, res) {
-  spHelper.init(req);
-  adalHelper.processAuth(req, res);
-});
-
 app.post('/export', function(req, res) {
   spHelper.init(req);
   adalHelper.processAuth(req, res);

@@ -65,4 +65,4 @@ exports.processAuth = function (req, res) {
 
 exports.getAccessToken = function (){
   return accessToken;
-}
+};

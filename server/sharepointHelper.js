@@ -24,7 +24,7 @@ var performRequest = function (res, endpoint, success) {
 		.header({ 'Accept': 'application/json', 'Authorization': 'Bearer ' + adalHelper.getAccessToken() })
 		.send()
 		.end(function (response) {
-			excelBuilder.addRows(res, response.body,listFields);
+			excelBuilder.addRows(res, response.body, listFields);
 		});
 };
 
@@ -33,24 +33,24 @@ var processDataItems = function (res, data) {
 };
 
 var buildQuery = function () {
-	var filter = '$filter=(', select = '$select=', expand = '$expand=', 
-	query = "https://tpgbys.sharepoint.com/sites/o365/_api/web/lists(guid'" + listID + "')/items?" ;
+	var filter = '$filter=(', select = '$select=', expand = '$expand=', exFlag,
+		query = "https://tpgbys.sharepoint.com/sites/o365/_api/web/lists(guid'" + listID + "')/items?";
 	for (var i = 0; i < itemIDs.length; i++) {
 		filter += '(ID eq ' + itemIDs[i] + ')';
-		if (i !== itemIDs.length - 1) filter += ' or ';
-		else filter += ')';
+		filter += (i !== itemIDs.length - 1) ? ' or ' : ')';
 	}
 	for (i = 0; i < listFields.length; i++) {
+		exFlag = false;
 		switch (listFields[i].FieldType) {
 			case 'User':
 				select += listFields[i].RealFieldName + '/Title';
 				expand += listFields[i].RealFieldName + '/ID';
-				if (i !== listFields.length - 1) expand += ',';
+				exFlag = true;
 				break;
 			case 'Lookup':
 				select += listFields[i].RealFieldName + '/Title';
 				expand += listFields[i].RealFieldName + '/Title';
-				if (i !== listFields.length - 1) expand += ',';
+				exFlag = true;
 				break;
 			default:
 				select += listFields[i].RealFieldName;
@@ -58,6 +58,7 @@ var buildQuery = function () {
 		}
 		if (i !== listFields.length - 1) {
 			select += ',';
+			expand += exFlag ? ',' : '';
 		}
 	}
 	return (query + filter + '&' + select + '&' + expand);
