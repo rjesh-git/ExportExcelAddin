@@ -8,7 +8,6 @@
 Export selected items to excel using NodeJS
 
 
-
 ### Applies to ###
 -  Office 365 Multi Tenant (MT)
 -  Office 365 Dedicated (D)
