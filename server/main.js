@@ -8,7 +8,6 @@ var adalHelper = require('./adalHelper.js');
 var spHelper = require('./sharepointHelper.js');
 var bodyParser = require('body-parser');
 
-
 var app = express();
 app.use(logger());
 app.use(cookieParser('a deep secret'));

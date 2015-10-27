@@ -1,4 +1,3 @@
-var https = require('https');
 var unirest = require('unirest');
 var adalHelper = require('./adalHelper.js');
 var excelBuilder = require('./excelBuilder.js');
@@ -10,7 +9,7 @@ exports.init = function (req) {
 	listID = req.body.ListID;
 	listName = req.body.ListName;
 	itemIDs = req.body.ItemIDs.split(',');
-	spHostUrl = decodeURIComponent(req.query.SPHostUrl);
+	spHostUrl = req.body.WebUrl;
 	//TODO : Use view name as sheet name
 	excelBuilder.init(listName, 'viewNameHere');
 };
@@ -34,7 +33,7 @@ var processDataItems = function (res, data) {
 
 var buildQuery = function () {
 	var filter = '$filter=(', select = '$select=', expand = '$expand=', exFlag,
-		query = "https://tpgbys.sharepoint.com/sites/o365/_api/web/lists(guid'" + listID + "')/items?";
+		query = spHostUrl + "/_api/web/lists(guid'" + listID + "')/items?";
 	for (var i = 0; i < itemIDs.length; i++) {
 		filter += '(ID eq ' + itemIDs[i] + ')';
 		filter += (i !== itemIDs.length - 1) ? ' or ' : ')';

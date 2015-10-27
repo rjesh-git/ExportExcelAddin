@@ -1,6 +1,3 @@
-var logger = require('connect-logger');
-var cookieParser = require('cookie-parser');
-var session = require('cookie-session');
 var fs = require('fs');
 var crypto = require('crypto');
 var AuthenticationContext = require('adal-node').AuthenticationContext;
@@ -23,7 +20,7 @@ if (parametersFile) {
 var authorityUrl = sampleParameters.authorityHostUrl + '/' + sampleParameters.tenant;
 var redirectUri = 'http://localhost:3000/getAToken';
 //var resource = '00000002-0000-0000-c000-000000000000';
-var resource = 'https://tpgbys.sharepoint.com';
+var resource = sampleParameters.resource;
 var templateAuthzUrl = 'https://login.windows.net/' + sampleParameters.tenant + '/oauth2/authorize?response_type=code&client_id=<client_id>&redirect_uri=<redirect_uri>&state=<state>&resource=<resource>';
 
 function createAuthorizationUrl(state) {

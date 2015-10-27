@@ -1,6 +1,7 @@
 {
-    "tenant": "tpgbys.onmicrosoft.com",
+    "tenant": "yourtenant.onmicrosoft.com",
     "authorityHostUrl": "https://login.windows.net",
     "clientId": "89bedb2a-3c1e-4df6-b544-8f1f14392ebd",
-    "clientSecret": "vM2XycJD8lf29qfckwGC604ATqUBYTFcIsxvdnZuNFo="
+    "clientSecret": "vM2XycJD8lf29qfckwGC604ATqUBYTFcIsxvdnZuNFo=",
+    "resource": "https://yourtenant.sharepoint.com"
 }
