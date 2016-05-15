@@ -8,13 +8,13 @@
   },
   "main": "main.js",
   "dependencies": {
-    "adal-node": ">= 0.1.17",
-    "express": "4.13",
-    "connect-logger": "0.x",
-    "cookie-parser": "1.4",
-    "cookie-session": "2.x",
+    "adal-node": "0.1.19",
+    "express": "4.13.4",
+    "connect-logger": "0.0.1",
+    "cookie-parser": "1.4.1",
+    "cookie-session": "2.0.0-alpha.1",
     "msexcel-builder": "0.0.2",
-    "unirest": "2.14.x",
-    "body-parser": "2.14.x"
+    "unirest": "0.5.0",
+    "body-parser": "1.15.1"
   }
 }

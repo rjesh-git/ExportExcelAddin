@@ -24,6 +24,7 @@ ExportExcelAddin | Rajesh Sitaraman
 Version  | Date | Comments
 ---------| -----| --------
 0.1  | Oct 15 2015 | Pre-release
+1.0  | May 14 2016 | Initial release
 
 ### Disclaimer ###
 **THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
